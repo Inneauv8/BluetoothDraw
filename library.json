@@ -12,5 +12,6 @@
     "version": "1.0.0",
     "dependencies": {
       "LibRobUS": "https://github.com/UdeS-GRO/LibRobUS",
+      "RobusDraw": "https://github.com/Inneauv8/RobusDraw"
     }
   }
