@@ -1,0 +1,68 @@
+/**************************************************************************************************
+Nom du fichier : main.cpp
+Auteur : Mathieu Durand
+Date de création : 2023/10/16
+
+Description : Fichier principale Arduino
+              
+Notes : 
+
+Modifications : 
+
+***************************************************************************************************/
+
+// *************************************************************************************************
+//  INCLUDES
+// *************************************************************************************************	
+
+#include <Arduino.h>
+#include <LibRobus.h>
+#include <RobusDraw.h>
+#include <BluetoothDraw.h>
+
+#define SUCESS_TONE 1500
+#define SUCESS_TONE_DURATION 350
+
+#define FAILURE_TONE 550
+#define FAILURE_TONE_DURATION 300
+
+#define CHANING_MENU_TONE 300
+#define CHANING_MENU_TONE_DURATION 125
+
+void resultFeedback(bool success);
+void changeMenuFeedback();
+
+void setup()
+{
+    BoardInit();
+    Serial.begin(9600); // 115200 ou 9600
+    Serial3.begin(115200);
+    bool initialized = RobusDraw::initialize(10);
+    resultFeedback(initialized);
+
+    while(!initialized) {
+        Serial3.println("Failed to initialize SD card!");
+        initialized = RobusDraw::initialize(10);
+    }
+
+    resultFeedback(initialized);
+    Serial3.println("Successfully initialized SD card!");
+
+    BluetoothDraw::initialize(Serial3);
+}
+
+bool loadWithFeedback(char *path) {
+    bool success = RobusDraw::loadDrawing(path);
+
+    resultFeedback(success);
+
+    return success;
+}
+
+void resultFeedback(bool success) {
+    AX_BuzzerON(success ? SUCESS_TONE : FAILURE_TONE, success ? SUCESS_TONE_DURATION : FAILURE_TONE_DURATION);
+}
+
+void loop() {
+    BluetoothDraw::update();
+}
