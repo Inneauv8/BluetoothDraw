@@ -4,8 +4,9 @@
 #include <Arduino.h>
 #include <SD.h>
 
-#define BLUETOOTH_DRAW_BUFFER_SIZE 50
-#define PACKET_SIZE 10
+#define BLUETOOTH_DRAW_BUFFER_SIZE 300
+#define PACKET_SIZE 50
+#define CHARACTER_READ_LIMIT 100
 
 namespace BluetoothDraw {
     enum ReadingState {

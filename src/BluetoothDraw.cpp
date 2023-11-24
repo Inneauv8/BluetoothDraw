@@ -10,7 +10,7 @@ namespace BluetoothDraw {
             state = WAITING;
         }
 
-        while(stream->available()) {
+        for(int i = 0; i < CHARACTER_READ_LIMIT && stream->available(); i++) {
             processCharacter(stream->read());
         }
 
