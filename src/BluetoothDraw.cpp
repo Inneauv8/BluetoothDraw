@@ -63,6 +63,7 @@ namespace BluetoothDraw {
                     SD.remove(buffer);
                     file = &SD.open(buffer, FILE_WRITE);
                     state = READING_FILE;
+                    emptyBuffer();
                 } else if (!fillBuffer(c)) {
                     state = FAILED;
                 }
