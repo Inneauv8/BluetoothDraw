@@ -5,6 +5,7 @@
 #include <SD.h>
 
 #define BLUETOOTH_DRAW_BUFFER_SIZE 50
+#define PACKET_SIZE 10
 
 namespace BluetoothDraw {
     enum ReadingState {
@@ -27,6 +28,8 @@ namespace BluetoothDraw {
         extern ReadingState state;
 
         void processCharacter(char c);
+        void emptyBuffer();
+        bool fillBuffer(char c);
     }
 }
 
